@@ -36,7 +36,7 @@ def parse():
     parser.add_argument('--beta2_D', default=0.9, type=float, help='beta2 parameter of Adam for Discriminator')
 
     parser.add_argument('--batch_size', default=64, type=int, help='number of batches')
-    parser.add_argument('--steps', default=1e6, type=float, help='steps to train')
+    parser.add_argument('--steps', default=3e5, type=float, help='steps to train')
 
     parser.add_argument('--dataset', default='dsprites', type=str, help="dataset to use")
     parser.add_argument('--output_dir', default='outputs', type=str, help='output directory')
