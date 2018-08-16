@@ -57,12 +57,12 @@ class Trainer():
 
         step = 0
 
-        #for e in range(epochs):
-        for e in range(1):
+        for e in range(epochs):
+        #for e in range(1):
 
             for x_true1, x_true2 in self.dataloader:
 
-                if step == 300: break
+                #if step == 300: break
 
                 step += 1
 

@@ -43,8 +43,8 @@ def parse():
     parser.add_argument('--no-cuda', action='store_true', default=False)
     parser.add_argument('--nb-test', type=int, default=9, help='number of test samples to visualize the recons of')
     parser.add_argument('--seed', type=int, default=1)
-    parser.add_argument('--log-interval', type=int, default=50)
-    parser.add_argument('--save-interval', type=int, default=50)
+    parser.add_argument('--log-interval', type=int, default=500)
+    parser.add_argument('--save-interval', type=int, default=2000)
 
     return parser.parse_args()
 
@@ -56,6 +56,7 @@ def main():
     #device
     use_cuda = not args.no_cuda and torch.cuda.is_available()
     device = torch.device('cuda' if use_cuda else 'cpu')
+    print(device)
 
     # data loader
     img_dims, dataloader = _get_dataset(args.dataset)
