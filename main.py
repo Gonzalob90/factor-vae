@@ -134,7 +134,7 @@ class Trainer():
 
                 # Saving plot gt vs predicted
                 if not step % self.args.gt_interval:
-                    filename = 'alpha_' + str(self.alpha) + '_gt_' + str(step) + '.png'
+                    filename = 'gt_' + str(step) + '.png'
                     filepath = os.path.join(self.args.output_dir, filename)
                     plot_gt_shapes(self.net_mode, self.VAE, self.dataloader_gt, filepath)
 
