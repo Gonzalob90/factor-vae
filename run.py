@@ -6,7 +6,7 @@ import random
 import torch
 import numpy as np
 from main import Trainer
-from dataset import get_dsprites_dataloader
+from dataset import get_dsprites_dataloader, get_dsprites_dataloader_gt
 
 DATASETS = {'dsprites': [(1, 64, 64), get_dsprites_dataloader]}
 
@@ -45,6 +45,7 @@ def parse():
     parser.add_argument('--seed', type=int, default=1)
     parser.add_argument('--log-interval', type=int, default=500)
     parser.add_argument('--save-interval', type=int, default=2000)
+    parser.add_argument('--gt-interval', type=int, default=5000)
 
     return parser.parse_args()
 
@@ -62,6 +63,9 @@ def main():
     img_dims, dataloader = _get_dataset(args.dataset)
     dataloader = dataloader(args.batch_size)
 
+    # data loader gt
+    dataloader_gt = get_dsprites_dataloader_gt(args.batch_size)
+
     # test images to reconstruct during training
     dataset_size = len(dataloader.dataset)
     indices = np.hstack((0, np.random.choice(range(1,dataset_size),args.nb_test - 1)))
@@ -75,7 +79,7 @@ def main():
     os.makedirs(args.output_dir)
 
     # train
-    net = Trainer(args, dataloader, device, test_imgs)
+    net = Trainer(args, dataloader, device, test_imgs, dataloader_gt)
     net.train()
 
 

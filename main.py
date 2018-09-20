@@ -8,14 +8,16 @@ import os
 from ops import recon_loss, kl_div, permute_dims
 from utils import traverse
 from model import VAE, Discriminator
+from test_plot_gt import plot_gt_shapes
 
 class Trainer():
 
-    def __init__(self, args, dataloader, device, test_imgs):
+    def __init__(self, args, dataloader, device, test_imgs, dataloader_gt):
 
         self.device = device
         self.args = args
         self.dataloader = dataloader
+        self.dataloader_gt = dataloader_gt
 
         # Data
         self.dataset = args.dataset
@@ -62,7 +64,7 @@ class Trainer():
 
             for x_true1, x_true2 in self.dataloader:
 
-                #if step == 300: break
+                #if step == 50: break
 
                 step += 1
 
@@ -129,6 +131,13 @@ class Trainer():
                     filename = 'traversal_' + str(step) + '.png'
                     filepath = os.path.join(self.args.output_dir, filename)
                     traverse(self.net_mode, self.VAE, self.test_imgs, filepath)
+
+                # Saving plot gt vs predicted
+                if not step % self.args.gt_interval:
+                    filename = 'alpha_' + str(self.alpha) + '_gt_' + str(step) + '.png'
+                    filepath = os.path.join(self.args.output_dir, filename)
+                    plot_gt_shapes(self.net_mode, self.VAE, self.dataloader_gt, filepath)
+
 
     def net_mode(self, train):
         if not isinstance(train, bool):

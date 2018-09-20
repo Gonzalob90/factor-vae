@@ -21,3 +21,8 @@ class SpritesDataset(Dataset):
 def get_dsprites_dataloader(batch_size, shuffle=True):
     sprite_dataset = SpritesDataset()
     return DataLoader(sprite_dataset, batch_size=batch_size, shuffle=shuffle)
+
+
+def get_dsprites_dataloader_gt(batch_size, shuffle=False):
+    sprite_dataset = SpritesDataset()
+    return DataLoader(sprite_dataset, batch_size=batch_size, shuffle=shuffle)
